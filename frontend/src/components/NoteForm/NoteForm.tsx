@@ -19,7 +19,7 @@ export const NoteForm = ({ onNoteCreated }: Props) => {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/notes', {
+      const response = await fetch('https://note-app-4xg5.onrender.com/notes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, content }),

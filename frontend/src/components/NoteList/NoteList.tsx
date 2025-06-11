@@ -9,7 +9,7 @@ export const NoteList = () => {
 
   const fetchNotes = async () => {
     try {
-      const res = await fetch('http://localhost:3001/notes');
+      const res = await fetch('https://note-app-4xg5.onrender.com/notes');
       const data = await res.json();
       setNotes(data);
     } catch (err) {
@@ -24,7 +24,7 @@ export const NoteList = () => {
   }, []);
 
   const handleDelete = (id: string) => {
-    fetch(`http://localhost:3001/notes/${id}`, {
+    fetch(`https://note-app-4xg5.onrender.com/notes/${id}`, {
       method: 'DELETE',
     })
       .then((res) => {

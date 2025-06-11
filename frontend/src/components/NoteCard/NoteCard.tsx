@@ -24,7 +24,7 @@ export const NoteCard = ({ note, onDelete, onUpdate }: Props) => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3001/notes/${note.id}`, {
+      const res = await fetch(`https://note-app-4xg5.onrender.com/notes/${note.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, content }),
