@@ -6,7 +6,7 @@ export const NoteList = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const [sortAsc, setSortAsc] = useState(false); // false = newest first
+  const [sortAsc, setSortAsc] = useState(false);
 
   const fetchNotes = async () => {
     try {
