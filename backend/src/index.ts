@@ -35,28 +35,86 @@ const writeNotes = (notes: Note[]) => {
 app.get('/notes', (_req: Request, res: Response) => {
   const notes = readNotes();
   res.json(notes);
-  return;
 });
 
-app.post('/notes', (req: Request<{}, {}, { title: string; content: string }>, res: Response) => {
-  const { title, content } = req.body;
-  if (!title || !content) {
-    res.status(400).json({ message: 'Title and content are required.' });
+app.post(
+  '/notes',
+  (req: Request<{}, {}, { title: string; content: string }>, res: Response) => {
+    const { title, content } = req.body;
+
+    if (!title || !content) {
+      res.status(400).json({ message: 'Title and content are required.' });
+      return;
+    }
+
+    const newNote: Note = {
+      id: uuidv4(),
+      title,
+      content,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    const notes = readNotes();
+    notes.push(newNote);
+    writeNotes(notes);
+
+    res.status(201).json(newNote);
+  }
+);
+
+app.put(
+  '/notes/:id',
+  (
+    req: Request<{ id: string }, {}, { title: string; content: string }>,
+    res: Response
+  ) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    if (!title || !content) {
+      res.status(400).json({ message: 'Title and content are required.' });
+      return;
+    }
+
+    const notes = readNotes();
+    const noteIndex = notes.findIndex((note) => note.id === id);
+
+    if (noteIndex === -1) {
+      res.status(404).json({ message: 'Note not found.' });
+      return;
+    }
+
+    notes[noteIndex] = {
+      ...notes[noteIndex],
+      title,
+      content,
+      updatedAt: new Date().toISOString(),
+    };
+
+    writeNotes(notes);
+
+    res.status(200).json(notes[noteIndex]);
+  }
+);
+
+app.delete('/notes/:id', (req: Request<{ id: string }>, res: Response) => {
+  const { id } = req.params;
+
+  const notes = readNotes();
+  const noteIndex = notes.findIndex((note) => note.id === id);
+
+  if (noteIndex === -1) {
+    res.status(404).json({ message: 'Note not found.' });
     return;
   }
-  const newNote: Note = {
-    id: uuidv4(),
-    title,
-    content,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  const notes = readNotes();
-  notes.push(newNote);
+
+  const deletedNote = notes.splice(noteIndex, 1)[0];
   writeNotes(notes);
 
-  res.status(201).json(newNote);
-  return;
+  res.status(200).json(deletedNote);
 });
 
-app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
+app.listen(PORT, () =>
+  console.log(`✅ Server running at http://localhost:${PORT}`)
+);
