@@ -5,7 +5,8 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
-    "strict": true
+    "strict": true,
+    "emitDeclarationOnly": true
   },
   "include": ["vite.config.ts"]
 }
