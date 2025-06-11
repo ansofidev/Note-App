@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "5e78e33d-88e6-4325-824b-853a799ec29c",
+    "title": "Test note 1",
+    "content": "qwertYUIOpoigfdsdfghjkl/.,mnbv drtyuioiujhgvc b9876543ewrdfcv vgt67uijknbvcfdv ",
+    "createdAt": "2025-06-11T10:47:23.759Z",
+    "updatedAt": "2025-06-11T10:47:23.759Z"
+  },
+  {
+    "id": "e8d6a749-71fa-4850-9d43-25396d936336",
+    "title": "qwertyuiop",
+    "content": "srtyuikmn 456789",
+    "createdAt": "2025-06-11T10:47:45.731Z",
+    "updatedAt": "2025-06-11T10:47:45.731Z"
+  }
+]

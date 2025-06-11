@@ -12,6 +12,7 @@ type Note = {
 export const NoteList = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
 
   const fetchNotes = async () => {
     try {
@@ -36,7 +37,6 @@ export const NoteList = () => {
 
       if (!res.ok) throw new Error('Delete failed');
 
-      // Update local state
       setNotes(notes.filter((note) => note.id !== id));
     } catch (err) {
       console.error('Failed to delete note:', err);
@@ -47,16 +47,29 @@ export const NoteList = () => {
     fetchNotes();
   }, []);
 
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="note-list">
       <h1 className="note-list__title">📒 My Notes</h1>
+
+      <input
+        className="note-list__search"
+        type="text"
+        placeholder="Search by title..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
       {loading ? (
         <p className="note-list__empty">Loading...</p>
-      ) : notes.length === 0 ? (
-        <p className="note-list__empty">You don't have any notes yet.</p>
+      ) : filteredNotes.length === 0 ? (
+        <p className="note-list__empty">No matching notes found.</p>
       ) : (
         <ul className="note-list__items">
-          {notes.map((note) => (
+          {filteredNotes.map((note) => (
             <li key={note.id} className="note-card">
               <h2>{note.title}</h2>
               <p>{note.content}</p>
