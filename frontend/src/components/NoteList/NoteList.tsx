@@ -21,9 +21,9 @@ export const NoteList = () => {
 
   return (
     <div className="note-list">
-      <h1 className="note-list__title">📒 Мої нотатки</h1>
+      <h1 className="note-list__title">📒 My notes</h1>
       {notes.length === 0 ? (
-        <p className="note-list__empty">У вас ще немає нотаток.</p>
+        <p className="note-list__empty">You don't have any notes yet.</p>
       ) : (
         <ul className="note-list__items">
           {notes.map(note => (
