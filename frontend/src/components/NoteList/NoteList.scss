@@ -59,4 +59,26 @@
     font-size: 0.9rem;
     color: #718096;
   }
+  .note-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #718096;
+  margin-top: 1rem;
+}
+
+.note-card__delete {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #c53030;
+    text-decoration: underline;
+  }
+}
 }
